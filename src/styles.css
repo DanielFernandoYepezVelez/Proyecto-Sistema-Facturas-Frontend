@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 html {
+    min-height: 100%;
+    position: relative;
     box-sizing: border-box;
 }
 
@@ -10,4 +12,8 @@ html {
     margin: 0;
     padding: 0;
     box-sizing: inherit;
+}
+
+.wrapper {
+    margin-bottom: 75px;
 }

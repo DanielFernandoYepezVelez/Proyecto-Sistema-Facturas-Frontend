@@ -25,7 +25,7 @@ export class ClienteService {
   public getCliente(id: number): Observable<ClienteResponse> {
     return this.http.get<ClienteResponse>(`${this.urlEndPoint}/cliente/${id}`)
       .pipe(
-        tap(console.log)
+        // tap(console.log)
       );
   }
 
@@ -40,6 +40,13 @@ export class ClienteService {
     return this.http.put<ClienteResponse>(`${this.urlEndPoint}/cliente/${cliente.id}`, cliente, { headers: this.httpHeaders })
       .pipe(
         // tap(console.log),
+      );
+  }
+
+  public delete(id: number): Observable<ClienteResponse> {
+    return this.http.delete<ClienteResponse>(`${this.urlEndPoint}/cliente/${id}`, { headers: this.httpHeaders })
+      .pipe(
+        tap(console.log)
       );
   }
 
