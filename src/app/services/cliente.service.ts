@@ -18,14 +18,28 @@ export class ClienteService {
   public getClientes(): Observable<ClienteResponse[]> {
     return this.http.get<ClienteResponse[]>(`${this.urlEndPoint}/clientes`)
       .pipe(
-        tap(console.log),
+        // tap(console.log),
+      );
+  }
+
+  public getCliente(id: number): Observable<ClienteResponse> {
+    return this.http.get<ClienteResponse>(`${this.urlEndPoint}/cliente/${id}`)
+      .pipe(
+        tap(console.log)
       );
   }
 
   public create(cliente: ClienteResponse): Observable<ClienteResponse> {
     return this.http.post<ClienteResponse>(`${this.urlEndPoint}/cliente`, cliente, { headers: this.httpHeaders })
       .pipe(
-        tap(console.log),
+        // tap(console.log),
+      );
+  }
+
+  public update(cliente: ClienteResponse): Observable<ClienteResponse> {
+    return this.http.put<ClienteResponse>(`${this.urlEndPoint}/cliente/${cliente.id}`, cliente, { headers: this.httpHeaders })
+      .pipe(
+        // tap(console.log),
       );
   }
 

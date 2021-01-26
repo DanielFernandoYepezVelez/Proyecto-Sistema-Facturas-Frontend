@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 /* Services */
 import { ClienteService } from '../../services/cliente.service';
@@ -19,15 +19,36 @@ export class FormComponent implements OnInit {
   /* En Este Atributo Objeto Esta Mapeado-Enlazado(Data-Binding) El Formulario Gracias Al [(ngModel)] */
   public cliente: Cliente = new Cliente();
 
-  constructor(private clienteService: ClienteService, private router: Router) { }
+  constructor(private clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.cargarCliente();
+  }
+
+  public cargarCliente(): void {
+    this.activatedRoute.params.subscribe(params => {
+      const id = params.id;
+
+      if (id) {
+        this.clienteService.getCliente(id).subscribe(client => {
+          this.cliente = client;
+        });
+      }
+    });
   }
 
   public create(): void {
-    this.clienteService.create(this.cliente).subscribe((res) => {
+    this.clienteService.create(this.cliente).subscribe(res => {
       Swal.fire('Nuevo Cliente', `Cliente ${res.nombre} Creado Con Exito!`, 'success');
       this.router.navigateByUrl('/clientes');
+    });
+  }
+
+  public update(): void {
+    this.clienteService.update(this.cliente).subscribe(res => {
+      this.cliente = res;
+      this.router.navigateByUrl('clientes');
+      Swal.fire('Cliente Actualizado', `Cliente ${res.nombre} Actualizado Correctamente`, 'success');
     });
   }
 
