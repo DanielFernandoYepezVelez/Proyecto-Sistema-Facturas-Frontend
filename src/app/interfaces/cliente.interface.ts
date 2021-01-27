@@ -5,3 +5,8 @@ export interface ClienteResponse {
     email: string;
     createdAt: string;
 }
+
+export interface ResponseServer {
+    cliente: ClienteResponse;
+    mensaje: string;
+}
