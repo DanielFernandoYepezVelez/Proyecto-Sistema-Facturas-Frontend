@@ -27,7 +27,7 @@
             <tbody>
                 <tr *ngFor="let cliente of clientes">
                     <td>{{ cliente.id }}</td>
-                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.nombre | uppercase}}</td>
                     <td>{{ cliente.apellido }}</td>
                     <td>{{ cliente.email }}</td>
                     <td>{{ cliente.createdAt }}</td>
