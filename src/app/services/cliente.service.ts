@@ -2,10 +2,11 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { tap, catchError, map } from 'rxjs/operators';
+import { /* tap, */ catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 /* Interfaces */
+import { ResponseServerErrorID } from '../interfaces/error.interface';
 import { ClienteResponse, ResponseServer } from '../interfaces/cliente.interface';
 
 @Injectable({
@@ -29,7 +30,7 @@ export class ClienteService {
     return this.http.get<ClienteResponse>(`${this.urlEndPoint}/cliente/${id}`)
       .pipe(
         // tap(console.log),
-        catchError(res => {
+        catchError((res: ResponseServerErrorID) => {
           this.router.navigate(['/clientes']);
           Swal.fire('Error Al Editar', res.error.mensaje, 'error');
           return throwError(res);
@@ -43,8 +44,12 @@ export class ClienteService {
       .pipe(
         // tap(console.log),
         map(res => res.cliente),
-        catchError(res => {
-          Swal.fire('Error Al Crear El Cliente', res.error.mensaje, 'error');
+        catchError((res: any) => {
+
+          if (res?.status !== 400) {
+            Swal.fire('Error Al Crear El Cliente', res?.error?.mensaje, 'error');
+          }
+
           return throwError(res);
         })
       );
@@ -56,8 +61,12 @@ export class ClienteService {
       .pipe(
         // tap(console.log),
         map(res => res.cliente),
-        catchError(res => {
-          Swal.fire('Error Al Crear El Cliente', res.error.mensaje, 'error');
+        catchError((res: any) => {
+
+          if (res?.status !== 400) {
+            Swal.fire('Error Al Actulizar El Cliente', res?.error?.mensaje, 'error');
+          }
+
           return throwError(res);
         })
       );

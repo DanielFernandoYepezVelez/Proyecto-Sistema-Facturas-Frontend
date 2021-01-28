@@ -8,6 +8,9 @@ import { ClienteService } from '../../services/cliente.service';
 /* Models (Instancias) */
 import { Cliente } from 'src/app/models/Cliente';
 
+/* Interfaces */
+import { ResponseServerErrors } from '../../interfaces/error.interface';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -15,6 +18,7 @@ import { Cliente } from 'src/app/models/Cliente';
 })
 export class FormComponent implements OnInit {
   public titulo = 'Crear Cliente';
+  public errores: ResponseServerErrors[] = [];
 
   /* En Este Atributo Objeto Esta Mapeado-Enlazado(Data-Binding) El Formulario Gracias Al [(ngModel)] */
   public cliente: Cliente = new Cliente();
@@ -41,6 +45,12 @@ export class FormComponent implements OnInit {
     this.clienteService.create(this.cliente).subscribe(res => {
       Swal.fire('Nuevo Cliente', `Cliente ${res.nombre} Creado Con Exito!`, 'success');
       this.router.navigateByUrl('/clientes');
+
+    /* Se Ejecuta Primero El Error Del Servicio Y Observable Y Luego LLega A Este Error De La Suscripción */
+    }, (err: any) => {
+      if (err?.status === 400) {
+        this.errores = err?.error?.errors;
+      }
     });
   }
 
@@ -49,6 +59,12 @@ export class FormComponent implements OnInit {
       this.cliente = res;
       this.router.navigateByUrl('clientes');
       Swal.fire('Cliente Actualizado', `Cliente ${res.nombre} Actualizado Correctamente`, 'success');
+
+    /* Se Ejecuta Primero El Error Del Servicio Y Observable Y Luego LLega A Este Error De La Suscripción */
+    }, (err: any) => {
+      if (err?.status === 400) {
+        this.errores = err?.error?.errors;
+      }
     });
   }
 
