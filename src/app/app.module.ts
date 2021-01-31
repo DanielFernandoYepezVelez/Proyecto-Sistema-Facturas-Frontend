@@ -12,6 +12,7 @@ import { FormComponent } from './components/form/form.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { ClientesComponent } from './components/clientes/clientes.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ClientesComponent } from './components/clientes/clientes.component';
     FooterComponent,
     HeaderComponent,
     ClientesComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
   ],
   imports: [
     FormsModule,

@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 /* Services */
 import { ClienteService } from '../../services/cliente.service';
@@ -18,10 +19,18 @@ import { Cliente } from 'src/app/models/Cliente';
 export class ClientesComponent implements OnInit {
   public clientes: Cliente[] = [];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(private clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.clienteService.getClientes().subscribe(res => this.clientes = res);
+    this.activatedRoute.paramMap.subscribe(params =>  {
+      let page = +params.get('page'); // Operador De Suma Me Parsea De Un String A Number
+
+      if (!page) {
+        page = 0;
+      }
+
+      this.clienteService.getClientes(page).subscribe(res => this.clientes = res);
+    })
   }
 
   public delete(cliente: Cliente): void {

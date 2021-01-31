@@ -8,6 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 /* Interfaces */
 import { ResponseServerErrorID } from '../interfaces/error.interface';
 import { ClienteResponse, ResponseServer } from '../interfaces/cliente.interface';
+import { ResponseServerPages } from '../interfaces/paginacion.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,20 @@ export class ClienteService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  /* Clientes Sin Paginación
   public getClientes(): Observable<ClienteResponse[]> {
     return this.http.get<ClienteResponse[]>(`${this.urlEndPoint}/clientes`)
       .pipe(
         // tap(console.log),
+      );
+  } */
+
+  /* Clientes Con Paginación */
+  public getClientes(page: number): Observable<any> {
+    return this.http.get<ResponseServerPages>(`${this.urlEndPoint}/clientes/page/${page}`)
+      .pipe(
+        // tap(console.log),
+        map(res =>  res.content)
       );
   }
 
