@@ -9,6 +9,7 @@ import { ClienteService } from '../../services/cliente.service';
 import { Cliente } from 'src/app/models/Cliente';
 
 /* Interfaces */
+import { ResponseServerPages } from 'src/app/interfaces/paginacion.interface';
 // import { ClienteResponse } from '../../interfaces/cliente.interface';
 
 @Component({
@@ -18,6 +19,7 @@ import { Cliente } from 'src/app/models/Cliente';
 })
 export class ClientesComponent implements OnInit {
   public clientes: Cliente[] = [];
+  public paginador: ResponseServerPages;
 
   constructor(private clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -29,8 +31,11 @@ export class ClientesComponent implements OnInit {
         page = 0;
       }
 
-      this.clienteService.getClientes(page).subscribe(res => this.clientes = res);
-    })
+      this.clienteService.getClientes(page).subscribe((res: ResponseServerPages) => {
+        this.paginador = res;
+        this.clientes = res.content;
+      });
+    });
   }
 
   public delete(cliente: Cliente): void {

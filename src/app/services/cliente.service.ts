@@ -28,11 +28,11 @@ export class ClienteService {
   } */
 
   /* Clientes Con Paginación */
-  public getClientes(page: number): Observable<any> {
+  public getClientes(page: number): Observable<ResponseServerPages> {
     return this.http.get<ResponseServerPages>(`${this.urlEndPoint}/clientes/page/${page}`)
       .pipe(
         // tap(console.log),
-        map(res =>  res.content)
+        map(res =>  res)
       );
   }
 

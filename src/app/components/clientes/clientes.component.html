@@ -45,6 +45,6 @@
             </tbody>
         </table>
 
-        <app-paginator></app-paginator>
+        <app-paginator *ngIf="paginador" [paginadorChild]="paginador"></app-paginator>
     </div>
 </div>
