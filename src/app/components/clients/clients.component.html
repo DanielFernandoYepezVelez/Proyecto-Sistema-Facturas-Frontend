@@ -4,14 +4,14 @@
         <h5 class="card-title">Listado De Clientes</h5>
 
         <div class="my-2 text-left">
-            <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clientes/form']">Crear Cliente</button>
+            <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clients/form']">Crear Cliente</button>
         </div>
 
-        <div class="alert alert-info" *ngIf="clientes?.length === 0">
+        <div class="alert alert-info" *ngIf="clients?.length === 0">
             No Existen Registros En La Base De Datos!
         </div>
 
-        <table class="table table-bordered table-striped" *ngIf="clientes?.length > 0">
+        <table class="table table-bordered table-striped" *ngIf="clients?.length > 0">
             <thead>
                 <tr>
                     <th>id</th>
@@ -25,19 +25,19 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let cliente of clientes">
-                    <td>{{ cliente.id }}</td>
-                    <td>{{ cliente.nombre | uppercase}}</td>
-                    <td>{{ cliente.apellido }}</td>
-                    <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.createdAt }}</td>
+                <tr *ngFor="let client of clients">
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.name | uppercase}}</td>
+                    <td>{{ client.lastName }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>{{ client.createdAt }}</td>
                     <td>
-                        <button type="button" name="button" class="btn btn-primary" [routerLink]="['/cliente/form/', cliente.id]">
+                        <button type="button" name="button" class="btn btn-primary" [routerLink]="['/clients/form/', client.id]">
                             Editar
                         </button>
                     </td>
                     <td>
-                        <button type="button" name="button" class="btn btn-danger" (click)="delete(cliente)">
+                        <button type="button" name="button" class="btn btn-danger" (click)="delete(client)">
                             Eliminar
                         </button>
                     </td>
@@ -45,6 +45,6 @@
             </tbody>
         </table>
 
-        <app-paginator *ngIf="paginador" [paginadorChild]="paginador"></app-paginator>
+        <app-paginator *ngIf="paginator" [paginatorChild]="paginator"></app-paginator>
     </div>
 </div>
