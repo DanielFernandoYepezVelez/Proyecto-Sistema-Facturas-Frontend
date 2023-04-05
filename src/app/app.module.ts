@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { FormComponent } from './components/form/form.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { ClientesComponent } from './components/clientes/clientes.component';
+import { ClientsComponent } from './components/clients/clients.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 
 @NgModule({
@@ -19,7 +19,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
     AppComponent,
     FooterComponent,
     HeaderComponent,
-    ClientesComponent,
+    ClientsComponent,
     FormComponent,
     PaginatorComponent
   ],
